@@ -1,21 +1,24 @@
 #include "CostaButton.h"
 
-CostaButton::CostaButton(int v_pin)
+CostaButton::CostaButton(int v_pin, int v_normalValue, boolean v_pullUp)
 {
 	pin = v_pin;
-
 	pinMode(pin, INPUT);
-	digitalWrite(pin, HIGH);
 	
+	if (v_pullUp)
+		digitalWrite(pin, HIGH);
+
+	normalValue = v_normalValue;
+
 	debouceDelay = 20;
 	holdDelay = 1000;
 	holdedDelay = 200;
 	
-	lastTempValue = HIGH;
+	lastTempValue = normalValue;
 	changeTempValueTime = 0;
 	
-	lastValue = HIGH;
-	value = HIGH;
+	lastValue = normalValue;
+	value = normalValue;
 	
 	lastState = OFF;
 	state = OFF;
@@ -46,7 +49,7 @@ int CostaButton::checkEvent()
 		lastValue = value;
 		lastState = state;
 		
-		if (value == HIGH)
+		if (value == normalValue)
 		{
 			state = OFF;
 			result = RELEASED_EVENT;
