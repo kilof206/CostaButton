@@ -19,18 +19,21 @@
 class CostaButton
 {
 	public:
-		CostaButton(int v_pin);
+		CostaButton(int v_pin, int v_normalValue, boolean v_pullUp);
 		
 		int checkEvent();
+		
 		int getState();
 		int getLastState();
-		
+
 		void setDebounceDelay(unsigned long v_debouceDelay);
 		void setHoldDelay(unsigned long v_HoldDelay);
 		void setHoldedDelay(unsigned long v_HoldedDelay);
 
 	private:
 		int pin;
+		int normalValue;
+		
 		int debouceDelay;
 		int holdDelay;
 		int holdedDelay;
